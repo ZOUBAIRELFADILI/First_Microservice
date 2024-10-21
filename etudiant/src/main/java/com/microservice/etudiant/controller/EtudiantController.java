@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/etudiant")
@@ -21,6 +22,13 @@ public class EtudiantController {
     @GetMapping("/{id}")
     public EtudiantDTO getEtudinat(@PathVariable("id") Long id){
         return etudiantService.getEtudiant(id);
+    }
+
+    // New endpoint that returns both Etudiant and Filiere details
+    @GetMapping("/{id}/filiere")
+    public ResponseEntity<EtudiantDTO> getEtudiantWithFiliere(@PathVariable("id") Long id) {
+        EtudiantDTO etudiantDTO = etudiantService.getEtudiant(id);
+        return ResponseEntity.ok(etudiantDTO);
     }
 
     @PostMapping("/{add}")
